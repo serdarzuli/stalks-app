@@ -1,0 +1,7 @@
+pip==25.0.1
+aiohttp
+python-dotenv
+pytest
+requests
+openai
+Django==3.0.2
