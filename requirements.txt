@@ -5,3 +5,4 @@ pytest
 requests
 openai
 Django==3.0.2
+smtplib

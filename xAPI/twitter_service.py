@@ -57,4 +57,14 @@ class TwitterService:
     async def get_all_tweets(self, params: dict) -> dict:
         url = f'{self.base_url}/users/{params["user_id"]}/tweets?{params["tweet_fields"]}'
 
-        return await self._send_request(url)
+        result = await self._send_request(url)
+        
+        if result['detail'] == True: #to many request
+            return None
+        
+        next_token = result.get("meta", {}).get("next_token", None)
+        
+        if next_token:
+            print(f"Next Token: {next_token}")
+        else:
+            print("No next_token found.")
