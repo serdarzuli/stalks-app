@@ -1,4 +1,5 @@
 import aiohttp
+import asyncio
 import json
 from xAPI.config import BASE_URL, HEADERS
 
@@ -56,15 +57,39 @@ class TwitterService:
     
     async def get_all_tweets(self, params: dict) -> dict:
         url = f'{self.base_url}/users/{params["user_id"]}/tweets?{params["tweet_fields"]}'
+        return await self._send_request(url, params)
+            
+            
+    async def fetch_all_tweets(self, params: dict) -> list:
+        """
+        Get all tweets > 10 via pegination.
+        """
+        all_tweets = []
+        next_token = None
 
-        result = await self._send_request(url)
-        
-        if result['detail'] == True: #to many request
-            return None
-        
-        next_token = result.get("meta", {}).get("next_token", None)
-        
-        if next_token:
-            print(f"Next Token: {next_token}")
-        else:
-            print("No next_token found.")
+        while True:
+            url = f'{self.base_url}/users/{params["user_id"]}/tweets?{params["tweet_fields"]}'
+            
+            # if next_token is true, the next page will add.
+            if next_token:
+                url += f"&pagination_token={next_token}"
+
+            result = await self._send_request(url)
+
+            # check the errors
+            if isinstance(result, list) and result and isinstance(result[0], dict):
+                if result[0].get("status") == 429:
+                    print("Too many requests. Waiting 15 seconds...")
+                    await asyncio.sleep(15)  # Wait 15 seconds
+                    continue  # Tekrar dene
+
+            # Add all tweets to list
+            tweets = result.get("data", [])
+            all_tweets.extend(tweets)
+
+            # check the new token is true or false
+            next_token = result.get("meta", {}).get("next_token", None)
+            if not next_token:
+                break  # if false break loop
+
+        return all_tweets
