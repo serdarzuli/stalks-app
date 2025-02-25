@@ -4,7 +4,7 @@ from django.shortcuts import render
 from .forms import ContactForm
 from xAPI.twitter_service import TwitterService
 from xAPI.config import query_get_all_tweets
-from helper import utilies
+from helper import json
 
 # Create your views here.
 
@@ -16,7 +16,7 @@ def index(request):
         form = ContactForm(request.POST)
         if form.is_valid(): # if data are correct gohead
             response = asyncio.run(tweet.get_all_tweets(query_get_all_tweets))
-            tweets_as_json = utilies.convert_to_json(response)
+            tweets_as_json = json.convert_to_json(response)
 
             if tweets_as_json is True:
                 print("saved as json")
