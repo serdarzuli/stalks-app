@@ -5,7 +5,7 @@ from .models import Contact
 
 # @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ['name', 'email', 'dept', 'date']
+    list_display = ['user_id', 'email', 'list', 'date']
     # date_hierarchy = 'pub_date'
 
 

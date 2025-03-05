@@ -6,9 +6,9 @@ from .models import Contact
 class ContactForm(forms.ModelForm):
     class Meta:
         model = Contact
-        fields = ['name', 'email', 'message', 'dept', 'date'] # These fields show me spesific fields in the form 
+        fields = ['user_id', 'email', 'message', 'list', 'date'] # These fields show me spesific fields in the form 
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'FullName'}),
-            'email': forms.EmailInput(attrs={'placeholder': 'Email'}),
-            'message': forms.Textarea(attrs={'placeholder': 'Write your text', 'rows': 6})
+            'user_id': forms.TextInput(attrs={'placeholder': '@jhondoe'}),
+            'email': forms.EmailInput(attrs={'placeholder': 'Contact Email'}),
+            'message': forms.Textarea(attrs={'placeholder': 'Text', 'rows': 6})
         }

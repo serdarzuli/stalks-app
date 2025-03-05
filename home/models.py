@@ -3,19 +3,19 @@ from django.utils import timezone
 
 # Build the contact form using the inheritance and ORM
 class Contact(models.Model):
-    name = models.CharField(max_length=100)
+    user_id = models.CharField(max_length=50)
     email = models.EmailField()
     message = models.TextField()
     date = models.DateTimeField(default=timezone.now)
     
 # I'll create an ENUM regarding to multi-section part on index.html
 
-    DEPARTMENTS = [
-        ('MF', 'Manufacturing'),
-        ('SH', 'Shipping'),
-        ('AD', 'Administration'),
-        ('HR', 'Human Resources')
+    LIST = [
+        ('Ka', "Karakter Analizi"),
+        ('DD', "Duygusal Durumu"),
+        ('HO', "Hobileri"),
+        ('ID', "İlişki Durumu")
     ]
     
-    dept = models.CharField(max_length=2, choices=DEPARTMENTS, default=DEPARTMENTS[3][0])
+    list = models.CharField(max_length=2, choices=LIST, default=LIST[3][0])
     

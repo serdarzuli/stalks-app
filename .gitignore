@@ -4,3 +4,6 @@ __pycache__/
 .idea/
 *.log
 .venv
+pytest.ini
+db.sqlite3
+db.sqlite3
