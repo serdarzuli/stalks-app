@@ -11,8 +11,10 @@ async def main():
     # chat = await deep_seek.chat_deep_seek()
     # print(chat)
     
-    get_all_tweets = await twitter.get_all_tweets(query_get_all_tweets)
-    print(get_all_tweets)
+    # get_all_tweets = await twitter.get_all_tweets(query_get_all_tweets)
+    fetch_all_tweets = await twitter.fetch_all_tweets(query_get_all_tweets)
+    
+    print(fetch_all_tweets)
     # send_email.send_mail()
 
 

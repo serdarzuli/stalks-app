@@ -8,10 +8,10 @@ def convert_to_json(file):
         
         # if "data" in file:
             # extrated_texts = [tweet["text"] for tweet in file["data"] if "text" in tweet]
-            
-        for tweet in file["data"]:
-            if "text" in tweet:
-                extrated_texts.append(tweet["text"])
+        if "data" in extrated_texts:
+            for tweet in file["data"]:
+                if "text" in tweet:
+                    extrated_texts.append(tweet["text"])
         
             
         with open('helper/data.json', 'w', encoding='utf-8') as f:
